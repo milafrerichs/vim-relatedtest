@@ -1,0 +1,33 @@
+" relatedtest.vim - Vim related test plugin
+" Language:     Viml
+" Maintainer:   Walter Dal Mut (walter.dalmut AT gmail DOT com)
+"
+"       OPTIONS:
+"
+"           let g.realted_test_open_trigger = tt [default tt]
+"               Combo for open a related test
+"
+
+let b:relatedtest_file_exp = '\.js$'
+let b:relatedtest_file_sub = '\.test\.js'
+
+let b:relatedtest_source_sub = '\.js'
+let b:relatedtest_test_regexp = '\.test\.js$'
+
+function! RelatedTestIsTest(actual_file_path)
+    return strlen(matchstr(a:actual_file_path, b:relatedtest_test_regexp))
+endfunction
+
+function! RelatedTestGetFileName(actual_file_path)
+    let relatedtest_filename = substitute(a:actual_file_path, b:relatedtest_test_regexp, b:relatedtest_source_sub, '')
+
+     return relatedtest_filename
+
+endfunction
+
+" Get the fullpath of the test file
+function! RelatedTestGetTestFileName(actual_file_path)
+     let relatedtest_testfilename = substitute(a:actual_file_path, b:relatedtest_file_exp, b:relatedtest_file_sub, '')
+
+     return relatedtest_testfilename
+endfunction
